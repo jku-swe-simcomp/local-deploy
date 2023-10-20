@@ -33,5 +33,17 @@ services:
       DATASOURCE_URL: ${SERVICE_REGISTRY_DATASOURCE_URL}
     depends_on:
       - postgres
+  demo-adaptor:
+    image: jkuswesimcomp/demo-adaptor:${DEMO_ADAPTOR_VERSION}
+    container_name: demo-adaptor
+    ports:
+      - "${DEMO_ADAPTOR_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT}
+      ADAPTOR_HOST: demo-adaptor
+    depends_on:
+      - registry
 networks:
   local-net:
