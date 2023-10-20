@@ -18,6 +18,9 @@ ALTER DATABASE service_registry OWNER TO registry;
 
 \connect service_registry
 
+GRANT USAGE ON SCHEMA public TO registry;
+GRANT CREATE ON SCHEMA public TO registry;
+
 -- Tables of service registry
 
 CREATE TABLE public.test (

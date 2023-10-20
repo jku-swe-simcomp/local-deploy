@@ -31,5 +31,7 @@ services:
       - local-net
     environment:
       DATASOURCE_URL: ${SERVICE_REGISTRY_DATASOURCE_URL}
+    depends_on:
+      - postgres
 networks:
   local-net:

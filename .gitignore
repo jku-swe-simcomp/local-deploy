@@ -1,5 +1,3 @@
-volumes/dke_dispatcher/*
-volumes/fuseki/backups/*
 volumes/postgres/data/*
 .idea/*
 *.log
