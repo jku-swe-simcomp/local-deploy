@@ -22,5 +22,14 @@ services:
     volumes:
       - ./volumes/postgres/init:/docker-entrypoint-initdb.d:ro
       - ./volumes/postgres/data:/var/lib/postgresql/data
+  registry:
+    image: jkuswesimcomp/service-registry:${SERVICE_REGISTRY_VERSION}
+    container_name: registry
+    ports:
+      - "${SERVICE_REGISTRY_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      DATASOURCE_URL: ${SERVICE_REGISTRY_DATASOURCE_URL}
 networks:
   local-net:
