@@ -15,7 +15,7 @@ You can add custom databases to the postgres server in the [init-file](./volumes
 Once the container is started for the first time, the databases-folder will be mounted under *./volumes/postgres/data*.
 If you change the contents of the [init-file](./volumes/postgres/init/init.sql) and want to rebuild the whole container, you also have to delete this folder beforehand.
 
-## Addaptors
+## Adaptors
 The adaptors are configured to automatically register themselves at the [service-registry](https://github.com/jku-swe-simcomp/simcomp-services/tree/main/service-registry).
 
 
