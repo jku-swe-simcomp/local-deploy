@@ -5,6 +5,7 @@
 # keywords: robot/arm
 # A 6-axis collaborative robot based on open-source technologies designed for education, professional training and research.
 
+
 PROTO Ned [
   field SFVec3f     translation     0 0 0       # Is `Pose.translation`.
   field SFRotation  rotation        0 0 1 0     # Is `Pose.rotation`.
