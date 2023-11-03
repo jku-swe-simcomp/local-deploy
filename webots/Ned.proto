@@ -5,10 +5,6 @@
 # keywords: robot/arm
 # A 6-axis collaborative robot based on open-source technologies designed for education, professional training and research.
 
-EXTERNPROTO "webots://projects/appearances/protos/Copper.proto"
-EXTERNPROTO "webots://projects/appearances/protos/Plastic.proto"
-EXTERNPROTO "webots://projects/appearances/protos/BrushedAluminium.proto"
-
 PROTO Ned [
   field SFVec3f     translation     0 0 0       # Is `Pose.translation`.
   field SFRotation  rotation        0 0 1 0     # Is `Pose.rotation`.
@@ -364,7 +360,7 @@ PROTO Ned [
                                           name "joint_6_sensor"
                                         }
                                       ]
-                                      DEF BASE_GRIPPER Solid {
+                                      endPoint Solid {
                                         translation 0.0197 0.00925 0
                                         rotation 0 1 0 1.57
                                         children [
