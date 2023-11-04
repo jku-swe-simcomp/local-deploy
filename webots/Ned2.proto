@@ -271,7 +271,7 @@ PROTO Ned [
                               name "joint_4_sensor"
                             }
                           ]
-                          endPoint DEF BASE_GRIPPER Solid {
+                          endPoint Solid {
                             translation 0.032 0.042 0
                             rotation -0.5775032287046065 -0.5775032287046065 -0.5770442285228318 2.093475
                             children [
