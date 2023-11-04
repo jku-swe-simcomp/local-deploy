@@ -45,5 +45,17 @@ services:
       ADAPTOR_HOST: demo-adaptor
     depends_on:
       - registry
+  webots-adaptor:
+    image: jkuswesimcomp/webots-adaptor:${WEBOTS_ADAPTOR_VERSION}
+    container_name: webots-adaptor
+    ports:
+      - "${WEBOTS_ADAPTOR_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT}
+      ADAPTOR_HOST: webots-adaptor
+    depends_on:
+      - registry
 networks:
   local-net:
