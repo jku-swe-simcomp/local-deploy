@@ -20,7 +20,6 @@ PROTO Ned [
   field SFBool      supervisor      FALSE       # Is `Robot.supervisor`.
   field SFBool      synchronization TRUE        # Is `Robot.synchronization`.
   field SFBool      selfCollision   FALSE       # Is `Robot.selfCollision`.
-  field SFBool      supervisorField TRUE
 ]
 {
   Robot {
@@ -30,7 +29,7 @@ PROTO Ned [
     controllerArgs IS controllerArgs
     window IS window
     customData IS customData
-    supervisor IS supervisorField
+    supervisor IS supervisor
     synchronization IS synchronization
     selfCollision IS selfCollision
     children [
