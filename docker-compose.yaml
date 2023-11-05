@@ -22,6 +22,19 @@ services:
     volumes:
       - ./volumes/postgres/init:/docker-entrypoint-initdb.d:ro
       - ./volumes/postgres/data:/var/lib/postgresql/data
+  manager:
+    image: jkuswesimcomp/manager:${SERVICE_REGISTRY_VERSION}
+    container_name: manager
+    ports:
+      - "${ADAPTOR_MANAGER_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      DATASOURCE_URL: ${ADAPTOR_MANAGER_DATASOURCE_URL}
+    volumes:
+      - ./volumes/manager/logs:/home/app/logs
+    depends_on:
+      - postgres
   registry:
     image: jkuswesimcomp/service-registry:${SERVICE_REGISTRY_VERSION}
     container_name: registry
