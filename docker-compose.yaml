@@ -31,6 +31,8 @@ services:
       - local-net
     environment:
       DATASOURCE_URL: ${SERVICE_REGISTRY_DATASOURCE_URL}
+    volumes:
+      - ./volumes/registry/logs:/home/app/logs
     depends_on:
       - postgres
   demo-adaptor:
