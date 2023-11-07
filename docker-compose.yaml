@@ -45,5 +45,10 @@ services:
       ADAPTOR_HOST: demo-adaptor
     depends_on:
       - registry
+  simcomp-ui:
+    image: jkuswesimcomp/simcomp-ui:${SIMCOMP_UI_VERSION}
+    container_name: simcomp-ui
+    ports:
+      - "${SIMCOMP_UI_PORT}:3000"
 networks:
   local-net:
