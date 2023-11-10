@@ -34,5 +34,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .env
-          git commit -m "Update Docker image tags to $NEW_TAG"
-          git push
+          git diff --staged --exit-code
+          if [ $? -eq 1 ]; then
+            git commit -m "Update Docker image tags to $NEW_TAG"
+            git push
+          else
+            echo "No changes to commit"
+          fi
