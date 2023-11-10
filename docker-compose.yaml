@@ -23,7 +23,7 @@ services:
       - ./volumes/postgres/init:/docker-entrypoint-initdb.d:ro
       - ./volumes/postgres/data:/var/lib/postgresql/data
   manager:
-    image: jkuswesimcomp/manager:${SERVICE_REGISTRY_VERSION}
+    image: jkuswesimcomp/manager:${ADAPTOR_MANAGER_VERSION}
     container_name: manager
     ports:
       - "${ADAPTOR_MANAGER_PORT}:8080"
