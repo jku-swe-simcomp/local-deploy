@@ -1,1 +1,34 @@
 
+on:
+  repository_dispatch:
+    types: [image-built]
+
+jobs:
+  update-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Update .env File
+        run: |
+          # Extract the tag from the repository dispatch event payload
+          NEW_TAG=${{ github.event.client_payload.tag }}
+
+          # Replace 'oldtag' with the new tag in the .env file
+          sed -i "s/^SERVICE_REGISTRY_VERSION=.*/SERVICE_REGISTRY_VERSION=$NEW_TAG/" .env
+          sed -i "s/^DEMO_ADAPTOR_VERSION=.*/DEMO_ADAPTOR_VERSION=$NEW_TAG/" .env
+          sed -i "s/^WEBOTS_ADAPTOR_VERSION=.*/WEBOTS_ADAPTOR_VERSION=$NEW_TAG/" .env
+          sed -i "s/^ADAPTOR_MANAGER_VERSION=.*/ADAPTOR_MANAGER_VERSION=$NEW_TAG/" .env
+          sed -i "s/^SIMCOMP_UI_VERSION=.*/SIMCOMP_UI_VERSION=$NEW_TAG/" .env
+
+          # Display the updated .env file for debugging purposes
+          cat .env
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .env
+          git commit -m "Update Docker image tags to $NEW_TAG"
+          git push
