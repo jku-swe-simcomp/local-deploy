@@ -12,6 +12,8 @@ jobs:
 
       - name: Update .env File
         run: |
+          # Display .env file for debugging purposes
+          cat .env
           # Extract the tag from the repository dispatch event payload
           NEW_TAG=${{ github.event.client_payload.tag }}
 
