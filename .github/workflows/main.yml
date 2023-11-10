@@ -9,7 +9,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Use GITHUB_TOKEN for checkout
+          
       - name: Update .env File
         run: |
           # Display .env file for debugging purposes
