@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} # Use GITHUB_TOKEN for checkout
-          
+        uses: actions/checkout@v3
+        
       - name: Update .env File
         run: |
           # Display .env file for debugging purposes
