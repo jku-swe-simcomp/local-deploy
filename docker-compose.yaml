@@ -31,7 +31,8 @@ services:
       - local-net
     environment:
       DATASOURCE_URL: ${ADAPTOR_MANAGER_DATASOURCE_URL}
-      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT} 
+      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT}
+      AXIS_CONVERTER_ENDPOINT: http://axis-converter:8080
     volumes:
       - ./volumes/manager/logs:/home/app/logs
     depends_on:
@@ -78,5 +79,12 @@ services:
       ADAPTOR_HOST: webots-adaptor
     depends_on:
       - registry
+  axis-converter:
+    image: jkuswesimcomp/axis-converter:${AXIS_CONVERTER_VERSION}
+    container_name: axis-converter
+    ports:
+      - "${AXIS_CONVERTER_PORT}:8080"
+    networks:
+      - local-net
 networks:
   local-net:
