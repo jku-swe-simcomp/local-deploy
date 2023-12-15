@@ -30,20 +30,17 @@ jobs:
         
       - name: Wait for adaptors
         run: sleep 10s  # Adjust the wait time based on your system's startup time
-
-      - name: Load Environment Variables
-        run: |
-          set -o allexport
-          source .env
-          set +o allexport
-      - name: Print Debug Information
-        run: |
-          echo "ADAPTOR_MANAGER_PORT: ${ADAPTOR_MANAGER_PORT}"
-          docker-compose ps  # Print container information
-          netstat -tuln      # Print open ports
           
       - name: Run Integration Tests
         run: |
+          # load envs
+          set -o allexport
+          source .env
+          set +o allexport
+          # print debug info
+          echo "ADAPTOR_MANAGER_PORT: ${ADAPTOR_MANAGER_PORT}"
+          docker-compose ps  # Print container information
+          netstat -tuln      # Print open ports
           # Add your integration test commands here
           curl -X GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type
 
