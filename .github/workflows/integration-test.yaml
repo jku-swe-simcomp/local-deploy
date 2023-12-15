@@ -73,6 +73,15 @@ jobs:
           
           # Verify the response is an array with exactly two entries
           echo "$response" | jq 'length' | grep -q '^2$' || exit 1
-
+          
+      - name: Trigger update of e2e test-completion time in gh-pages
+        if: success() # Ensure this runs only if the previous steps were successful
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.PAT }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/jku-swe-simcomp/simcomp-services/dispatches" \
+            -d '{"event_type": "e2e-completed", "client_payload": {}}'
+      
       - name: Tear down Docker Compose
         run: docker-compose down
