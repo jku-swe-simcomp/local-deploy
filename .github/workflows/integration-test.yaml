@@ -1,4 +1,4 @@
-name: Integration Tests
+name: E2E Tests
 
 on:
   push:
@@ -44,8 +44,31 @@ jobs:
           docker-compose logs manager
           docker-compose logs demo-adaptor
           docker-compose logs webots-adaptor
-          # Add your integration test commands here
-          curl -X GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type
+          ###### System tests as curl-statements
+          # Request to fetch simulation types
+          response=$(curl -sX GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type)
+
+          # Verify the response contains "availableSimulations" array with specified entries
+          echo "$response" | jq '.availableSimulations' | grep -q 'DEMO' || exit 1
+          echo "$response" | jq '.availableSimulations' | grep -q 'WEBOTS' || exit 1
+
+          # Request to manager endpoint to add a WEBOTS instance
+          curl -sX POST \
+            -H "Content-Type: application/json" \
+            -d '{"simulationType": "WEBOTS", "instanceId": "MY_PERSONAL_WEBOTS_INSTANCE", "instanceHost": "127.0.0.1", "instancePort": 10010}' \
+            http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance
+
+          # Request to manager endpoint to add a DEMO instance
+          curl -sX POST \
+            -H "Content-Type: application/json" \
+            -d '{"simulationType": "DEMO", "instanceId": "MY_PERSONAL_DEMO_INSTANCE", "instanceHost": "127.0.0.1", "instancePort": 10011}' \
+            http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance
+
+          # Request to fetch simulation instances
+          response=$(curl -sX GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance)
+          
+          # Verify the response is an array with exactly two entries
+          echo "$response" | jq 'length' | grep -q '^2$' || exit 1
 
       - name: Tear down Docker Compose
         run: docker-compose down
