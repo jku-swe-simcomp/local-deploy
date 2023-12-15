@@ -6,6 +6,9 @@ You can start the docker network with:
 ```
 docker-compose up -d
 ```
+
+When first deploying the network, it might be necessary to rerun above command after the postgres server is ready to accept connections, as the first initialization of the server will likely take longer which causes some services to crash.
+
 ## PostgreSQL database
 You can log into PGAdmin then on your local webbrowser over localhost:8091 and log in with the email simcomp@jku.at and password simcomp.
 Register the server with *host-name, username, password* = postgres.
@@ -17,6 +20,8 @@ If you change the contents of the [init-file](./volumes/postgres/init/init.sql) 
 
 ## Adaptors
 The adaptors are configured to automatically register themselves at the [service-registry](https://github.com/jku-swe-simcomp/simcomp-services/tree/main/service-registry).
+There is a delay configured for the registration to mitigate the risk of the adaptors attempting registration while the registry is not ready to handle the request.
+If registration still fails, either trigger registration manually using the swagger-ui of the adaptors, or restart the adaptor containers.
 
 ## Workflows
 There are two github actions workflow for this repository [(see here)](./.github/workflows).
