@@ -42,6 +42,8 @@ jobs:
           docker-compose ps  # Print container information
           netstat -tuln      # Print open ports
           docker-compose logs manager
+          docker-compose logs demo-adaptor
+          docker-compose logs webots-adaptor
           # Add your integration test commands here
           curl -X GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type
 
