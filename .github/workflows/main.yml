@@ -1,4 +1,4 @@
-
+name: update Docker image tags
 on:
   repository_dispatch:
     types: [image-built]
