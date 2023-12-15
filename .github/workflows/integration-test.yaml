@@ -45,6 +45,8 @@ jobs:
           docker-compose logs demo-adaptor
           docker-compose logs webots-adaptor
           ###### System tests as curl-statements
+          echo "Starting E2E tests"
+          echo "Fetching available simulation types"
           # Request to fetch simulation types
           response=$(curl -sX GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type)
           echo "$response"
@@ -53,17 +55,18 @@ jobs:
           echo "$response" | jq '.availableSimulations' | grep -q 'WEBOTS' || exit 1
 
           # Request to manager endpoint to add a WEBOTS instance
+          echo "Adding simulation instance (webots)"
           curl -sX POST \
             -H "Content-Type: application/json" \
             -d '{"simulationType": "WEBOTS", "instanceId": "MY_PERSONAL_WEBOTS_INSTANCE", "instanceHost": "127.0.0.1", "instancePort": 10010}' \
             http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance
-
+          echo "Adding simulation instance (demo)"
           # Request to manager endpoint to add a DEMO instance
           curl -sX POST \
             -H "Content-Type: application/json" \
             -d '{"simulationType": "DEMO", "instanceId": "MY_PERSONAL_DEMO_INSTANCE", "instanceHost": "127.0.0.1", "instancePort": 10011}' \
             http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance
-
+          echo "Fetching simulation instances to verify registration of instances"
           # Request to fetch simulation instances
           response=$(curl -sX GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/instance)
           echo "$response"
