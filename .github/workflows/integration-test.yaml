@@ -1,0 +1,46 @@
+name: Integration Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Start postgres container
+        run: docker-compose up -d postgres
+
+      - name: Wait for postgres to Start
+        run: sleep 30s  # Adjust the wait time based on your system's startup time
+
+      - name: Start remaining containers except adaptors
+        run: docker-compose up -d manager registry simcomp-ui axis-converter
+        
+      - name: Wait for Services to Start
+        run: sleep 30s  # Adjust the wait time based on your system's startup time
+
+      - name: Start adaptors
+        run: docker-compose up -d demo-adaptor webots-adaptor
+        
+      - name: Wait for adaptors
+        run: sleep 30s  # Adjust the wait time based on your system's startup time
+
+      - name: Load Environment Variables
+        run: |
+          set -o allexport
+          source .env
+          set +o allexport
+
+      - name: Run Integration Tests
+        run: |
+          # Add your integration test commands here
+          curl -X GET http://localhost:${ADAPTOR_MANAGER_PORT}/simulation/type
+
+      - name: Tear down Docker Compose
+        run: docker-compose down
