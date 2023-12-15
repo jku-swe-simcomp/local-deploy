@@ -18,6 +18,11 @@ If you change the contents of the [init-file](./volumes/postgres/init/init.sql) 
 ## Adaptors
 The adaptors are configured to automatically register themselves at the [service-registry](https://github.com/jku-swe-simcomp/simcomp-services/tree/main/service-registry).
 
+## Workflows
+There are two github actions workflow for this repository [(see here)](./.github/workflows).
+One workflow automatically updates the image tags and is triggered by a repository dispatch in the [main repository]().
+The other workflow performs E2E tests on every change, see also [here](https://jku-swe-simcomp.github.io/simcomp-services/).
 
 ## Notes for developers
 Container versions and other environment variables should be defined in the [env-file](./.env).
+
