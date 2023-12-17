@@ -93,8 +93,9 @@ jobs:
           # Extract session-key
           sessionKey=$(echo "$response" | jq -r '.sessionKey')
 
+          echo "Sending set-joint-position command for session"
           # send set-joint-position command
-          executionId=$(curl -X 'POST' \
+          executionId=$(curl -sX 'POST' \
             "http://localhost:${ADAPTOR_MANAGER_PORT}/session/${sessionKey}/execution" \
             -H 'accept: text/html' \
             -H 'Content-Type: application/json' \
@@ -103,9 +104,12 @@ jobs:
           # wait a bit
           sleep 5s
 
+          echo "${executionId}
+          echo "fetching execution response"
           # request execution response
-          response=$(curl -X 'GET' "http://localhost:${ADAPTOR_MANAGER_PORT}/session/execution/${executionId}" -H 'accept: application/json')
+          response=$(curl -sX 'GET' "http://localhost:${ADAPTOR_MANAGER_PORT}/session/execution/${executionId}" -H 'accept: application/json')
 
+          echo "verifying that response have expected status codes"
           # verify responses from simulations
           # Use jq to extract status codes for DEMO and WEBOTS
           demoStatusCode=$(echo "$response" | jq -r '.responses[] | select(.simulationName == "DEMO") .responseCode')
