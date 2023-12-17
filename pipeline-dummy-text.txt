@@ -1,0 +1,6 @@
+# This is a workaround so that the github actions pipeline of this repo which should update docker image tags does not fail
+# if the image tags are already up-to-date before the pipeline was started.
+# The pipeline just adds a string to this file so that "git commit" does not throw an error due to "nothing to commit."
+# This is especially necessary as there is another pipeline that runs the integration tests which is triggered by a change in the repo.
+
+1
