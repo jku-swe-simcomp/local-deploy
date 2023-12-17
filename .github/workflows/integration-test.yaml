@@ -76,6 +76,7 @@ jobs:
           
           # Verify the response is an array with exactly two entries
           echo "$response" | jq 'length' | grep -q '^2$' || exit 1
+          echo "verification of instances completed"
           
           # Request to initialize a session
           response=$(curl -sX 'POST' \
