@@ -30,11 +30,14 @@ jobs:
           # Display the updated .env file for debugging purposes
           cat .env
 
+          # Add string to pipeline-dummy-text.txt so that pipeline does not fail if image tags were already up-to-date
+          echo "1" >> pipeline-dummy-text.txt.txt
+
       - name: Commit and Push Changes
         run: |
+          NEW_TAG=${{ github.event.client_payload.tag }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .env
-          git commit -m "Update Docker image tags to $NEW_TAG"
+          git commit -am "Update Docker image tags to $NEW_TAG"
           git push
           
