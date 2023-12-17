@@ -94,7 +94,7 @@ jobs:
           sessionKey=$(echo "$response" | jq -r '.sessionKey')
 
           # send set-joint-position command
-          executionId = $(curl -X 'POST' \
+          executionId=$(curl -X 'POST' \
             http://localhost:${ADAPTOR_MANAGER_PORT}/session/${sessionKey} \
             -H 'accept: text/html' \
             -H 'Content-Type: application/json' \
