@@ -65,6 +65,8 @@ services:
       REGISTRATION_DELAY_MS: ${REGISTRATION_DELAY_MS}
     depends_on:
       - registry
+    volumes:
+      - ./volumes/demo-adaptor/logs:/home/app/logs
   simcomp-ui:
     image: jkuswesimcomp/simcomp-ui:${SIMCOMP_UI_VERSION}
     container_name: simcomp-ui
@@ -83,6 +85,8 @@ services:
       REGISTRATION_DELAY_MS: ${REGISTRATION_DELAY_MS}
     depends_on:
       - registry
+    volumes:
+      - ./volumes/webots-adaptor/logs:/home/app/logs
   axis-converter:
     image: jkuswesimcomp/axis-converter:${AXIS_CONVERTER_VERSION}
     container_name: axis-converter
@@ -90,5 +94,7 @@ services:
       - "${AXIS_CONVERTER_PORT}:8080"
     networks:
       - local-net
+    volumes:
+      - ./volumes/axis-converter/logs:/home/app/logs
 networks:
   local-net:
