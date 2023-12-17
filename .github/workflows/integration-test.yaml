@@ -104,7 +104,7 @@ jobs:
           # wait a bit
           sleep 5s
 
-          echo "${executionId}
+          echo "${executionId}"
           echo "fetching execution response"
           # request execution response
           response=$(curl -sX 'GET' "http://localhost:${ADAPTOR_MANAGER_PORT}/session/execution/${executionId}" -H 'accept: application/json')
