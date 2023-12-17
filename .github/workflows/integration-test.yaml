@@ -95,7 +95,7 @@ jobs:
 
           # send set-joint-position command
           executionId=$(curl -X 'POST' \
-            http://localhost:${ADAPTOR_MANAGER_PORT}/session/${sessionKey} \
+            "http://localhost:${ADAPTOR_MANAGER_PORT}/session/${sessionKey}/execution" \
             -H 'accept: text/html' \
             -H 'Content-Type: application/json' \
             -d '{"type": "SET_JOINT_POSITION","jointPosition": {"joint": "AXIS_1","radians": 1}}')
@@ -104,7 +104,7 @@ jobs:
           sleep 5s
 
           # request execution response
-          response=$(curl -X 'GET' http://localhost:${ADAPTOR_MANAGER_PORT}/session/execution/${executionId} -H 'accept: application/json')
+          response=$(curl -X 'GET' "http://localhost:${ADAPTOR_MANAGER_PORT}/session/execution/${executionId}" -H 'accept: application/json')
 
           # verify responses from simulations
           # Use jq to extract status codes for DEMO and WEBOTS
