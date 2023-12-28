@@ -1,0 +1,11 @@
+version: "3"
+services:
+  simcomp-ui:
+    image: jkuswesimcomp/simcomp-ui:${SIMCOMP_UI_VERSION}
+    container_name: simcomp-ui
+    ports:
+      - "${SIMCOMP_UI_PORT}:3000"
+    environment:
+      MANAGER_URL: ${MANAGER_URL}
+networks:
+  local-net:

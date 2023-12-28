@@ -1,0 +1,17 @@
+version: "3"
+services:
+  webots-adaptor:
+    image: jkuswesimcomp/webots-adaptor:${WEBOTS_ADAPTOR_VERSION}
+    container_name: webots-adaptor
+    ports:
+      - "${WEBOTS_ADAPTOR_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT}
+      ADAPTOR_HOST: ${HOST_IP}
+      REGISTRATION_DELAY_MS: ${REGISTRATION_DELAY_MS}
+    volumes:
+      - ./volumes/webots-adaptor/logs:/home/app/logs
+networks:
+  local-net:
