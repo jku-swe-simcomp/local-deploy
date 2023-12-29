@@ -67,6 +67,21 @@ services:
       - registry
     volumes:
       - ./volumes/demo-adaptor/logs:/home/app/logs
+  azure-adapter:
+    image: jkuswesimcomp/azure-adapter:${AZURE_ADAPTER_VERSION}
+    container_name: azure-adapter
+    ports:
+      - "${AZURE_ADAPTER_PORT}:8080"
+    networks:
+      - local-net
+    environment:
+      SERVICE_REGISTRY_ENDPOINT: ${SERVICE_REGISTRY_ENDPOINT}
+      ADAPTOR_HOST: azure-adapter
+      REGISTRATION_DELAY_MS: ${REGISTRATION_DELAY_MS}
+    depends_on:
+      - registry
+    volumes:
+      - ./volumes/azure-adapter/logs:/home/app/logs
   simcomp-ui:
     image: jkuswesimcomp/simcomp-ui:${SIMCOMP_UI_VERSION}
     container_name: simcomp-ui

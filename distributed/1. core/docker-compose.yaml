@@ -20,8 +20,8 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./volumes/postgres/init:/docker-entrypoint-initdb.d:ro
-      - ./volumes/postgres/data:/var/lib/postgresql/data
+      - ./../../volumes/postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./../../volumes/postgres/data:/var/lib/postgresql/data
   manager:
     image: jkuswesimcomp/manager:${ADAPTOR_MANAGER_VERSION}
     container_name: manager
