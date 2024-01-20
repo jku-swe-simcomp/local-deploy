@@ -27,7 +27,9 @@ jobs:
           sed -i "s/^ADAPTOR_MANAGER_VERSION=.*/ADAPTOR_MANAGER_VERSION=$NEW_TAG/" .env
           sed -i "s/^SIMCOMP_UI_VERSION=.*/SIMCOMP_UI_VERSION=$NEW_TAG/" .env
           sed -i "s/^AXIS_CONVERTER_VERSION=.*/AXIS_CONVERTER_VERSION=$NEW_TAG/" .env
-
+          sed -i "s/^WEBOTS_DRONE_ADAPTER_VERSION=.*/WEBOTS_DRONE_ADAPTER_VERSION=$NEW_TAG/" .env
+          sed -i "s/^AZURE_ADAPTER_VERSION=.*/AZURE_ADAPTER_VERSION=$NEW_TAG/" .env
+          
           # Display the updated .env file for debugging purposes
           cat .env
 
