@@ -91,6 +91,8 @@ services:
     container_name: simcomp-ui
     ports:
       - "${SIMCOMP_UI_PORT}:3000"
+    environment:
+      MANAGER_URL: http://manager:8080
   webots-adaptor:
     image: jkuswesimcomp/webots-adaptor:${WEBOTS_ADAPTOR_VERSION}
     container_name: webots-adaptor
