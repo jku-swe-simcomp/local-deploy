@@ -45,6 +45,7 @@ jobs:
           docker-compose logs registry
           docker-compose logs demo-adaptor
           docker-compose logs webots-adaptor
+          docker-compose logs registry
           ###### System tests as curl-statements
           echo "Starting E2E tests"
           echo "Fetching available simulation types"
